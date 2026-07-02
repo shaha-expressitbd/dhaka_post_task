@@ -6,7 +6,8 @@ import { notFound } from "next/navigation";
 import { Share2, Link as LinkIcon } from "lucide-react";
 
 const getArticle = cache(async (id: string) => {
-  const res = await fetch(`https://news-json.vercel.app/details/${id}.json`);
+  const apiUrl = process.env.API_URL || "https://news-json.vercel.app";
+  const res = await fetch(`${apiUrl}/details/${id}.json`);
   if (!res.ok) return null;
   const data: ArticleResponse = await res.json();
   return data.article;
