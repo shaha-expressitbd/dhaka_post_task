@@ -1,19 +1,9 @@
 import FeaturedNews from "@/components/FeaturedNews";
 import NewsCard from "@/components/NewsCard";
-import { NewsResponse } from "@/types/news";
+import { getHomeNews } from "@/services/newsService";
 
 export default async function Home() {
-  const homeApiUrl = process.env.HOME_API_URL || "https://news-json.vercel.app/home.json";
-  const res = await fetch(homeApiUrl, {
-    next: { revalidate: 60 }
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch news");
-  }
-
-  const data: NewsResponse = await res.json();
-  const news = data.news;
+  const news = await getHomeNews();
 
   if (!news || news.length === 0) {
     return <div className="container mx-auto px-4 py-10 text-center">কোনো খবর পাওয়া যায়নি।</div>;

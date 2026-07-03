@@ -1,17 +1,9 @@
-import { cache } from "react";
 import { Metadata } from "next";
 import Image from "next/image";
-import { ArticleResponse } from "@/types/news";
 import { notFound } from "next/navigation";
-import { Share2, Bookmark, Printer, User, Calendar, Clock } from "lucide-react";
-
-const getArticle = cache(async (id: string) => {
-  const detailsApiUrl = process.env.DETAILS_API_URL || "https://news-json.vercel.app/details";
-  const res = await fetch(`${detailsApiUrl}/${id}.json`);
-  if (!res.ok) return null;
-  const data: ArticleResponse = await res.json();
-  return data.article;
-});
+import { getArticleDetails } from "@/services/newsService";
+import ArticleMeta from "@/components/article/ArticleMeta";
+import ShareSection from "@/components/article/ShareSection";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -21,7 +13,7 @@ export async function generateMetadata(
   { params }: Props
 ): Promise<Metadata> {
   const p = await params;
-  const article = await getArticle(p.id);
+  const article = await getArticleDetails(p.id);
 
   if (!article) {
     return {
@@ -48,24 +40,11 @@ export async function generateMetadata(
 
 export default async function DetailsPage({ params }: Props) {
   const p = await params;
-  const article = await getArticle(p.id);
+  const article = await getArticleDetails(p.id);
 
   if (!article) {
     notFound();
   }
-
-  // Format date roughly matching screenshot
-  const dateObj = new Date(article.published_at);
-  const formattedDate = dateObj.toLocaleDateString('bn-BD', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
-  const formattedTime = dateObj.toLocaleTimeString('bn-BD', {
-    hour: 'numeric',
-    minute: 'numeric'
-  });
-  const displayDate = `${formattedDate} | ${formattedTime}`;
 
   return (
     <article className="container mx-auto px-4 lg:px-0 py-16 max-w-[800px]">
@@ -91,22 +70,11 @@ export default async function DetailsPage({ params }: Props) {
       )}
 
       {/* Meta info */}
-      <div className="flex flex-wrap items-center justify-between gap-4 text-gray-500 text-sm border-y border-gray-200 py-3 mb-8">
-        <div className="flex flex-wrap items-center gap-6">
-          <div className="flex items-center gap-1.5 font-bold text-gray-700">
-            <User className="w-4 h-4 text-gray-400" />
-            <span className="text-gray-700 text-[15px]">{article.author} </span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-gray-700" />
-            <span className="text-gray-700 text-[15px]">{displayDate}</span>
-          </div>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <Clock className="w-4 h-4 text-gray-700" />
-          <span className="text-gray-700 text-[15px]">{article.read_time} পাঠ</span>
-        </div>
-      </div>
+      <ArticleMeta 
+        author={article.author} 
+        publishedAt={article.published_at} 
+        readTime={article.read_time} 
+      />
 
       {/* Main Image */}
       <div className="mb-10">
@@ -149,20 +117,7 @@ export default async function DetailsPage({ params }: Props) {
       )}
 
       {/* Share Section */}
-      <div className="bg-[#F1F3FF] px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#E1E5F2]">
-        <span className="font-bold text-[#061838] text-[16px]">নিউজটি শেয়ার করুন:</span>
-        <div className="flex gap-4">
-          <button aria-label="Share on Network" className="w-10 h-10 rounded-full bg-transparent border border-[#d1d9e6] flex items-center justify-center text-[#64748b] hover:text-[#061838] hover:border-[#061838] transition-colors">
-            <Share2 className="w-[18px] h-[18px]" />
-          </button>
-          <button aria-label="Bookmark" className="w-10 h-10 rounded-full bg-transparent border border-[#d1d9e6] flex items-center justify-center text-[#64748b] hover:text-[#061838] hover:border-[#061838] transition-colors">
-            <Bookmark className="w-[18px] h-[18px]" />
-          </button>
-          <button aria-label="Print" className="w-10 h-10 rounded-full bg-transparent border border-[#d1d9e6] flex items-center justify-center text-[#64748b] hover:text-[#061838] hover:border-[#061838] transition-colors">
-            <Printer className="w-[18px] h-[18px]" />
-          </button>
-        </div>
-      </div>
+      <ShareSection />
     </article>
   );
 }

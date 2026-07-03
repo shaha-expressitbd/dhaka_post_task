@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Search, Menu, CircleUserRound, X } from "lucide-react";
 
+import { siteConfig } from "@/config/site";
+
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -19,15 +21,7 @@ export default function Header() {
     };
   }, [isSidebarOpen]);
 
-  // রাউটিং ডাটা (Navigation Links)
-  const navLinks = [
-    { name: "বিশ্ব", href: "#" },
-    { name: "ব্যবসা", href: "#" },
-    { name: "প্রযুক্তি", href: "#" },
-    { name: "রাজনীতি", href: "#" },
-    { name: "সংস্কৃতি", href: "#" },
-    { name: "মতামত", href: "#" },
-  ];
+  const navLinks = siteConfig.mainNav;
 
   return (
     <header className="w-full bg-white border-b border-slate-300 sticky top-0 z-50 py-2.5">
