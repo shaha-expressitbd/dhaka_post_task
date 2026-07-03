@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="bn" className={`${tiroBangla.variable} ${hindSiliguri.variable} antialiased`}>
-      <body className="min-h-screen flex flex-col bg-white text-slate-900 font-sans">
+      <body suppressHydrationWarning className="min-h-screen flex flex-col bg-white text-slate-900 font-sans">
         <Header />
         <main className="flex-grow">
           {children}

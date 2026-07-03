@@ -71,7 +71,7 @@ export default async function DetailsPage({ params }: Props) {
     <article className="container mx-auto px-4 lg:px-0 py-16 max-w-[800px]">
       {/* Category Tag */}
       <div className="mb-4">
-        <span className="inline-block bg-[#e8eef6] text-[#1b4382] px-2 py-0.5 text-[10] rounded">
+        <span className="inline-block bg-[#D7E0F7] text-gray-600 px-2 py-0.5 text-[16px] rounded font-medium">
           {article.category}
         </span>
       </div>
@@ -84,7 +84,7 @@ export default async function DetailsPage({ params }: Props) {
       {/* Subtitle / Intro */}
       {article.subtitle && (
         <div className="border-l-2 border-gray-500 pl-4 mb-8">
-          <p className="text-lg md:text-[18px] text-gray-500 font-medium leading-relaxed">
+          <p className="text-lg md:text-[18px] text-gray-700 font-medium leading-relaxed">
             {article.subtitle}
           </p>
         </div>
@@ -95,16 +95,16 @@ export default async function DetailsPage({ params }: Props) {
         <div className="flex flex-wrap items-center gap-6">
           <div className="flex items-center gap-1.5 font-bold text-gray-700">
             <User className="w-4 h-4 text-gray-400" />
-            {article.author}
+            <span className="text-gray-700 text-[15px]">{article.author} </span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-gray-600" />
-            <span className="text-gray-700">{displayDate}</span>
+            <Calendar className="w-4 h-4 text-gray-700" />
+            <span className="text-gray-700 text-[15px]">{displayDate}</span>
           </div>
         </div>
         <div className="flex items-center gap-1.5">
-          <Clock className="w-4 h-4 text-gray-600" />
-          <span className="text-gray-700">{article.read_time} পাঠ</span>
+          <Clock className="w-4 h-4 text-gray-700" />
+          <span className="text-gray-700 text-[15px]">{article.read_time} পাঠ</span>
         </div>
       </div>
 
@@ -120,7 +120,7 @@ export default async function DetailsPage({ params }: Props) {
             sizes="(max-width: 800px) 100vw, 800px"
           />
         </div>
-        <p className="text-sm text-gray-500 mt-3 text-center italic">
+        <p className="text-sm text-gray-700 mt-3 text-center italic">
           ছবি: দেশের উপকূলীয় জেলাগুলোতে বৃষ্টির দাপট বাড়ছে।
         </p>
       </div>
@@ -131,8 +131,8 @@ export default async function DetailsPage({ params }: Props) {
         prose-headings:text-[#061838] prose-headings:font-bold prose-headings:text-[22px] prose-headings:mt-8 prose-headings:mb-4
         prose-p:text-[#333333] prose-p:text-[18px] prose-p:leading-[1.6] prose-p:mb-5
         prose-a:text-blue-600 hover:prose-a:text-blue-700 
-        [&_ul]:[list-style-type:square] prose-ul:pl-5 
-        prose-li:text-[#333333] prose-li:text-[18px] prose-li:marker:text-[#061838] prose-li:mb-2
+        [&_ul]:[list-style-type:square] prose-ul:pl-5 prose-ul:my-4
+        prose-li:text-[#333333] prose-li:text-[16px] prose-li:marker:text-[#061838] prose-li:m-0
         prose-blockquote:border-l-[4px] prose-blockquote:border-[#061838] prose-blockquote:text-[#333333] prose-blockquote:italic prose-blockquote:py-1 prose-blockquote:px-5 prose-blockquote:my-8 prose-blockquote:font-normal"
         dangerouslySetInnerHTML={{ __html: article.content }}
       />
@@ -141,7 +141,7 @@ export default async function DetailsPage({ params }: Props) {
       {article.tags && article.tags.length > 0 && (
         <div className="flex flex-wrap gap-3 mb-10">
           {article.tags.map((tag, i) => (
-            <span key={i} className="bg-[#DCE2F2] text-[#1b4382] px-4 py-2 text-[14px] font-medium hover:bg-[#c4cde3] cursor-pointer transition-colors">
+            <span key={i} className="bg-[#E8EDFF] text-gray-800 px-4 py-2 text-[16px] font-medium hover:bg-[#c4cde3] cursor-pointer transition-colors">
               # {tag}
             </span>
           ))}
@@ -149,7 +149,7 @@ export default async function DetailsPage({ params }: Props) {
       )}
 
       {/* Share Section */}
-      <div className="bg-[#F2F5FB] px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#E1E5F2]">
+      <div className="bg-[#F1F3FF] px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#E1E5F2]">
         <span className="font-bold text-[#061838] text-[16px]">নিউজটি শেয়ার করুন:</span>
         <div className="flex gap-4">
           <button aria-label="Share on Network" className="w-10 h-10 rounded-full bg-transparent border border-[#d1d9e6] flex items-center justify-center text-[#64748b] hover:text-[#061838] hover:border-[#061838] transition-colors">

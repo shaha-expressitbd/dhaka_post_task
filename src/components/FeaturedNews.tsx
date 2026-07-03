@@ -17,10 +17,10 @@ export default function FeaturedNews({ news }: { news: NewsItem }) {
           />
         </div>
         <div>
-          <h2 className="text-2xl md:text-3xl lg:text-[34px] font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-snug">
+          <h2 className="text-[28px] md:text-3xl lg:text-[34px] font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-snug">
             {news.title}
           </h2>
-          <p className="text-gray-500 md:text-[16px] leading-relaxed">
+          <p className="text-gray-500 md:text-[16px] leading-relaxed mt-2">
             {news.summary}
           </p>
         </div>
