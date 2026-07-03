@@ -4,10 +4,10 @@ import { Search, User, Menu } from "lucide-react";
 export default function Header() {
   return (
     <header className="w-full bg-white border-b border-slate-200 sticky top-0 z-50">
-      <div className="container mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
+      <div className="container max-w-7xl mx-auto px-4 lg:px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">ঢাকা পোস্ট</h1>
+          <h1 className="text-2xl lg:text-5xl font-bold text-slate-900 tracking-tight">ঢাকা পোস্ট</h1>
         </Link>
 
         {/* Desktop Navigation */}

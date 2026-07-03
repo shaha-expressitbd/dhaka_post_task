@@ -24,7 +24,7 @@ export default function NewsCard({ news, variant = "small" }: NewsCardProps) {
           <h3 className="text-[17px] md:text-xl font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-snug line-clamp-3">
             {news.title}
           </h3>
-          <p className="hidden md:block text-slate-600 mt-2 line-clamp-2 md:text-[15px]">
+          <p className="hidden md:block text-blackmt-2 line-clamp-2 md:text-[15px]">
             {news.summary}
           </p>
         </div>

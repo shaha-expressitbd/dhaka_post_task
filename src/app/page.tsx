@@ -3,8 +3,8 @@ import NewsCard from "@/components/NewsCard";
 import { NewsResponse } from "@/types/news";
 
 export default async function Home() {
-  const apiUrl = process.env.API_URL || "https://news-json.vercel.app";
-  const res = await fetch(`${apiUrl}/home.json`, {
+  const homeApiUrl = process.env.HOME_API_URL || "https://news-json.vercel.app/home.json";
+  const res = await fetch(homeApiUrl, {
     next: { revalidate: 60 }
   });
 

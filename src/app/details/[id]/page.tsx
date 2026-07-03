@@ -3,11 +3,11 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { ArticleResponse } from "@/types/news";
 import { notFound } from "next/navigation";
-import { Share2, Link as LinkIcon } from "lucide-react";
+import { Share2, Bookmark, Printer, User, Calendar, Clock } from "lucide-react";
 
 const getArticle = cache(async (id: string) => {
-  const apiUrl = process.env.API_URL || "https://news-json.vercel.app";
-  const res = await fetch(`${apiUrl}/details/${id}.json`);
+  const detailsApiUrl = process.env.DETAILS_API_URL || "https://news-json.vercel.app/details";
+  const res = await fetch(`${detailsApiUrl}/${id}.json`);
   if (!res.ok) return null;
   const data: ArticleResponse = await res.json();
   return data.article;
@@ -54,61 +54,86 @@ export default async function DetailsPage({ params }: Props) {
     notFound();
   }
 
+  // Format date roughly matching screenshot
+  const dateObj = new Date(article.published_at);
+  const formattedDate = dateObj.toLocaleDateString('bn-BD', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+  const formattedTime = dateObj.toLocaleTimeString('bn-BD', {
+    hour: 'numeric',
+    minute: 'numeric'
+  });
+  const displayDate = `${formattedDate} | ${formattedTime}`;
+
   return (
-    <article className="container mx-auto px-4 lg:px-8 py-8 md:py-12 max-w-4xl">
+    <article className="container mx-auto px-4 lg:px-0 py-8 max-w-[800px]">
       {/* Category Tag */}
-      <div className="mb-6">
-        <span className="inline-block bg-blue-50 text-blue-700 px-3 py-1 text-sm font-semibold rounded">
+      <div className="mb-4">
+        <span className="inline-block bg-[#e8eef6] text-[#1b4382] px-2 py-0.5 text-xs font-semibold rounded">
           {article.category}
         </span>
       </div>
 
       {/* Title */}
-      <h1 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-slate-900 leading-tight mb-6">
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#061838] leading-tight mb-6">
         {article.title}
       </h1>
 
-      {/* Meta info */}
-      <div className="flex flex-wrap items-center gap-4 text-slate-600 text-sm md:text-base border-b border-slate-200 pb-6 mb-8">
-        <div className="flex items-center gap-2 font-medium text-slate-800">
-          <span className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
-            <span className="text-slate-500 text-lg">👤</span>
-          </span>
-          {article.author}
+      {/* Subtitle / Intro */}
+      {article.subtitle && (
+        <div className="border-l-2 border-gray-400 pl-4 mb-8">
+          <p className="text-lg md:text-[16px] text-gray-700 font-medium leading-relaxed">
+            {article.subtitle}
+          </p>
         </div>
-        <div className="flex items-center gap-4 ml-auto">
-          <span>📅 {new Date(article.published_at).toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric' })}</span>
-          <span>⏱️ {article.read_time} পাঠ</span>
+      )}
+
+      {/* Meta info */}
+      <div className="flex flex-wrap items-center justify-between gap-4 text-gray-500 text-sm border-y border-gray-200 py-3 mb-8">
+        <div className="flex flex-wrap items-center gap-6">
+          <div className="flex items-center gap-1.5 font-medium text-gray-700">
+            <User className="w-4 h-4 text-gray-400" />
+            {article.author}
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Calendar className="w-4 h-4 text-gray-400" />
+            <span>{displayDate}</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <Clock className="w-4 h-4 text-gray-400" />
+          <span>{article.read_time} পাঠ</span>
         </div>
       </div>
 
       {/* Main Image */}
       <div className="mb-10">
-        <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-100">
+        <div className="relative w-full aspect-[16/10] overflow-hidden bg-gray-100">
           <Image
             src={article.image}
             alt={article.title}
             fill
             className="object-cover"
             priority
-            sizes="(max-width: 1024px) 100vw, 896px"
+            sizes="(max-width: 800px) 100vw, 800px"
           />
         </div>
-        <p className="text-sm text-slate-500 mt-3 italic text-center">
+        <p className="text-sm text-gray-500 mt-3 text-center italic">
           ছবি: দেশের উপকূলীয় জেলাগুলোতে বৃষ্টির দাপট বাড়ছে।
         </p>
       </div>
 
-      {/* Subtitle / Intro */}
-      {article.subtitle && (
-        <p className="text-xl md:text-2xl text-slate-800 font-medium leading-relaxed mb-8">
-          {article.subtitle}
-        </p>
-      )}
-
       {/* Article Content */}
       <div
-        className="prose prose-lg prose-slate max-w-none mb-12 prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-700"
+        className="prose max-w-none mb-12 
+        prose-headings:text-[#061838] prose-headings:font-bold prose-headings:text-[22px] prose-headings:mt-8 prose-headings:mb-4
+        prose-p:text-[#333333] prose-p:text-[18px] prose-p:leading-[1.6] prose-p:mb-5
+        prose-a:text-blue-600 hover:prose-a:text-blue-700 
+        [&_ul]:[list-style-type:square] prose-ul:pl-5 
+        prose-li:text-[#333333] prose-li:text-[18px] prose-li:marker:text-[#061838] prose-li:mb-2
+        prose-blockquote:border-l-[4px] prose-blockquote:border-[#061838] prose-blockquote:text-[#333333] prose-blockquote:italic prose-blockquote:py-1 prose-blockquote:px-5 prose-blockquote:my-8 prose-blockquote:font-normal"
         dangerouslySetInnerHTML={{ __html: article.content }}
       />
 
@@ -116,7 +141,7 @@ export default async function DetailsPage({ params }: Props) {
       {article.tags && article.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-8">
           {article.tags.map((tag, i) => (
-            <span key={i} className="bg-slate-100 text-slate-700 px-3 py-1 rounded text-sm hover:bg-slate-200 cursor-pointer transition-colors">
+            <span key={i} className="bg-[#f3f4f6] text-[#4b5563] px-3 py-1 rounded text-sm hover:bg-gray-200 cursor-pointer transition-colors">
               # {tag}
             </span>
           ))}
@@ -124,20 +149,17 @@ export default async function DetailsPage({ params }: Props) {
       )}
 
       {/* Share Section */}
-      <div className="bg-slate-50 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-100">
-        <span className="font-bold text-slate-800 text-lg">নিউজটি শেয়ার করুন:</span>
+      <div className="bg-[#f8f9fa] rounded-lg px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span className="font-bold text-[#061838] text-[15px]">নিউজটি শেয়ার করুন:</span>
         <div className="flex gap-3">
-          <button aria-label="Share on Facebook" className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-600 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <button aria-label="Share on Network" className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:border-blue-600 transition-colors shadow-sm">
+            <Share2 className="w-[18px] h-[18px]" />
           </button>
-          <button aria-label="Share on Twitter" className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-400 hover:border-blue-400 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          <button aria-label="Bookmark" className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:border-blue-600 transition-colors shadow-sm">
+            <Bookmark className="w-[18px] h-[18px]" />
           </button>
-          <button aria-label="Copy Link" className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-900 transition-colors">
-            <LinkIcon className="w-5 h-5" />
-          </button>
-          <button aria-label="Share options" className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-900 transition-colors">
-            <Share2 className="w-5 h-5" />
+          <button aria-label="Print" className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:border-blue-600 transition-colors shadow-sm">
+            <Printer className="w-[18px] h-[18px]" />
           </button>
         </div>
       </div>

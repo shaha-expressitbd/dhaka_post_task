@@ -20,7 +20,7 @@ export default function FeaturedNews({ news }: { news: NewsItem }) {
           <h2 className="text-2xl md:text-3xl lg:text-[34px] font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-snug">
             {news.title}
           </h2>
-          <p className="text-slate-600 mt-3 md:text-[17px] leading-relaxed">
+          <p className="text-blackmt-3 md:text-[17px] leading-relaxed">
             {news.summary}
           </p>
         </div>

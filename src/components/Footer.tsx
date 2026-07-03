@@ -10,7 +10,7 @@ export default function Footer() {
         </Link>
 
         {/* Links */}
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-slate-600 font-medium mb-8">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-blackfont-medium mb-8">
           <Link href="#" className="hover:text-blue-600 transition-colors">আমাদের সম্পর্কে</Link>
           <Link href="#" className="hover:text-blue-600 transition-colors">যোগাযোগ</Link>
           <Link href="#" className="hover:text-blue-600 transition-colors">গোপনীয়তা নীতি</Link>
