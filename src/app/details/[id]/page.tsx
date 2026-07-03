@@ -68,23 +68,23 @@ export default async function DetailsPage({ params }: Props) {
   const displayDate = `${formattedDate} | ${formattedTime}`;
 
   return (
-    <article className="container mx-auto px-4 lg:px-0 py-8 max-w-[800px]">
+    <article className="container mx-auto px-4 lg:px-0 py-16 max-w-[800px]">
       {/* Category Tag */}
       <div className="mb-4">
-        <span className="inline-block bg-[#e8eef6] text-[#1b4382] px-2 py-0.5 text-xs font-semibold rounded">
+        <span className="inline-block bg-[#e8eef6] text-[#1b4382] px-2 py-0.5 text-[10] rounded">
           {article.category}
         </span>
       </div>
 
       {/* Title */}
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#061838] leading-tight mb-6">
+      <h1 className="text-3xl md:text-4xl lg:text-[52px] font-bold text-[#061838] leading-tight mb-6">
         {article.title}
       </h1>
 
       {/* Subtitle / Intro */}
       {article.subtitle && (
-        <div className="border-l-2 border-gray-400 pl-4 mb-8">
-          <p className="text-lg md:text-[16px] text-gray-700 font-medium leading-relaxed">
+        <div className="border-l-2 border-gray-500 pl-4 mb-8">
+          <p className="text-lg md:text-[18px] text-gray-500 font-medium leading-relaxed">
             {article.subtitle}
           </p>
         </div>
@@ -93,18 +93,18 @@ export default async function DetailsPage({ params }: Props) {
       {/* Meta info */}
       <div className="flex flex-wrap items-center justify-between gap-4 text-gray-500 text-sm border-y border-gray-200 py-3 mb-8">
         <div className="flex flex-wrap items-center gap-6">
-          <div className="flex items-center gap-1.5 font-medium text-gray-700">
+          <div className="flex items-center gap-1.5 font-bold text-gray-700">
             <User className="w-4 h-4 text-gray-400" />
             {article.author}
           </div>
           <div className="flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-gray-400" />
-            <span>{displayDate}</span>
+            <Calendar className="w-4 h-4 text-gray-600" />
+            <span className="text-gray-700">{displayDate}</span>
           </div>
         </div>
         <div className="flex items-center gap-1.5">
-          <Clock className="w-4 h-4 text-gray-400" />
-          <span>{article.read_time} পাঠ</span>
+          <Clock className="w-4 h-4 text-gray-600" />
+          <span className="text-gray-700">{article.read_time} পাঠ</span>
         </div>
       </div>
 
@@ -139,9 +139,9 @@ export default async function DetailsPage({ params }: Props) {
 
       {/* Tags */}
       {article.tags && article.tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-3 mb-10">
           {article.tags.map((tag, i) => (
-            <span key={i} className="bg-[#f3f4f6] text-[#4b5563] px-3 py-1 rounded text-sm hover:bg-gray-200 cursor-pointer transition-colors">
+            <span key={i} className="bg-[#DCE2F2] text-[#1b4382] px-4 py-2 text-[14px] font-medium hover:bg-[#c4cde3] cursor-pointer transition-colors">
               # {tag}
             </span>
           ))}
@@ -149,16 +149,16 @@ export default async function DetailsPage({ params }: Props) {
       )}
 
       {/* Share Section */}
-      <div className="bg-[#f8f9fa] rounded-lg px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span className="font-bold text-[#061838] text-[15px]">নিউজটি শেয়ার করুন:</span>
-        <div className="flex gap-3">
-          <button aria-label="Share on Network" className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:border-blue-600 transition-colors shadow-sm">
+      <div className="bg-[#F2F5FB] px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#E1E5F2]">
+        <span className="font-bold text-[#061838] text-[16px]">নিউজটি শেয়ার করুন:</span>
+        <div className="flex gap-4">
+          <button aria-label="Share on Network" className="w-10 h-10 rounded-full bg-transparent border border-[#d1d9e6] flex items-center justify-center text-[#64748b] hover:text-[#061838] hover:border-[#061838] transition-colors">
             <Share2 className="w-[18px] h-[18px]" />
           </button>
-          <button aria-label="Bookmark" className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:border-blue-600 transition-colors shadow-sm">
+          <button aria-label="Bookmark" className="w-10 h-10 rounded-full bg-transparent border border-[#d1d9e6] flex items-center justify-center text-[#64748b] hover:text-[#061838] hover:border-[#061838] transition-colors">
             <Bookmark className="w-[18px] h-[18px]" />
           </button>
-          <button aria-label="Print" className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:border-blue-600 transition-colors shadow-sm">
+          <button aria-label="Print" className="w-10 h-10 rounded-full bg-transparent border border-[#d1d9e6] flex items-center justify-center text-[#64748b] hover:text-[#061838] hover:border-[#061838] transition-colors">
             <Printer className="w-[18px] h-[18px]" />
           </button>
         </div>

@@ -24,7 +24,7 @@ export default async function Home() {
   const bottomRowNews = news.slice(4);
 
   return (
-    <div className="container mx-auto px-4 lg:px-8 py-8 md:py-12">
+    <div className="container mx-auto max-w-7xl px-2 lg:px-6 py-8 md:py-12">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left Column: Featured News */}
         <div className="lg:col-span-7 xl:col-span-8">

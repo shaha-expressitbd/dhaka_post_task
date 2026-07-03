@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Bengali } from "next/font/google";
+import { Tiro_Bangla, Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const notoSansBengali = Noto_Sans_Bengali({
+const tiroBangla = Tiro_Bangla({
   subsets: ["bengali"],
+  weight: "400",
+  variable: "--font-tiro-bangla",
+});
+
+const hindSiliguri = Hind_Siliguri({
+  subsets: ["bengali", "latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-noto-sans-bengali",
+  variable: "--font-hind-siliguri",
 });
 
 export const metadata: Metadata = {
@@ -21,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="bn" className={`${notoSansBengali.variable} antialiased`}>
-      <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <html lang="bn" className={`${tiroBangla.variable} ${hindSiliguri.variable} antialiased`}>
+      <body className="min-h-screen flex flex-col bg-white text-slate-900 font-sans">
         <Header />
         <main className="flex-grow">
           {children}

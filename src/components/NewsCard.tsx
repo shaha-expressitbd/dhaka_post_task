@@ -24,7 +24,7 @@ export default function NewsCard({ news, variant = "small" }: NewsCardProps) {
           <h3 className="text-[17px] md:text-xl font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-snug line-clamp-3">
             {news.title}
           </h3>
-          <p className="hidden md:block text-blackmt-2 line-clamp-2 md:text-[15px]">
+          <p className="hidden md:block text-gray-500 line-clamp-2 md:text-[15px]">
             {news.summary}
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function NewsCard({ news, variant = "small" }: NewsCardProps) {
 
   // small variant
   return (
-    <Link href={`/details/${news.id}`} className="group flex gap-4 items-center">
+    <Link href={`/details/${news.id}`} className="group flex gap-4 items-start">
       <div className="relative w-[110px] h-[75px] md:w-[130px] md:h-[90px] flex-shrink-0 overflow-hidden">
         <Image
           src={news.image}
@@ -44,7 +44,7 @@ export default function NewsCard({ news, variant = "small" }: NewsCardProps) {
           sizes="(max-width: 768px) 110px, 130px"
         />
       </div>
-      <h3 className="text-[16px] md:text-[18px] font-semibold text-slate-900 group-hover:text-blue-700 transition-colors leading-snug line-clamp-3">
+      <h3 className="text-[17px] md:text-[19px] font-medium text-[#2c3e50] group-hover:text-blue-700 transition-colors leading-[1.4]">
         {news.title}
       </h3>
     </Link>

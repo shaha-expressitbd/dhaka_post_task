@@ -3,15 +3,15 @@ import { Search, User, Menu } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="w-full bg-white border-b border-slate-200 sticky top-0 z-50">
-      <div className="container max-w-7xl mx-auto px-4 lg:px-4 h-16 flex items-center justify-between">
+    <header className="w-full bg-white border-b border-slate-300 sticky top-0 z-50 py-2.5" >
+      <div className="container max-w-7xl mx-auto px-4 lg:px-6 h-14 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
-          <h1 className="text-2xl lg:text-5xl font-bold text-slate-900 tracking-tight">ঢাকা পোস্ট</h1>
+          <h1 className="text-2xl lg:text-[50px] font-bold text-slate-900 tracking-tight">ঢাকা পোস্ট</h1>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 text-slate-600 font-medium">
+        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 text-gray-600 font-medium font-hind text-[16px]">
           <Link href="#" className="hover:text-blue-600 transition-colors">বিশ্ব</Link>
           <Link href="#" className="hover:text-blue-600 transition-colors">ব্যবসা</Link>
           <Link href="#" className="hover:text-blue-600 transition-colors">প্রযুক্তি</Link>
